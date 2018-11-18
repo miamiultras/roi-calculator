@@ -1,6 +1,6 @@
 import React from 'react';
 import './Table.scss';
-import { Service } from '../Report/service.interface';
+import { Service } from '../../../interfaces/service.interface';
 
 const Table = ({ data }: { data: Service[] }) => (
   <div className='table-container'>

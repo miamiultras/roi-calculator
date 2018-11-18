@@ -5,9 +5,7 @@ import './Home.scss';
 
 const Home = () => (
   <div className='home-container'>
-    <div className='title'>
-      <h1>Live PPV Event ROI Calculator</h1>
-    </div>
+    <h1>Live PPV Event ROI Calculator</h1>
     <div className='description'>
       Ever wondered <strong>how much money you can generate </strong>
       with the Live Pay-Per-View model? Based on our experience in

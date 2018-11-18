@@ -4,9 +4,9 @@ import Paragraph from '../../Paragraph/Paragraph';
 import NextButton from '../../NextButton/NextButton';
 import BackButton from '../../BackButton/BackButton';
 import Table from '../Table/Table';
-import { data } from './data.mock';
+import { Service } from '../../../interfaces/service.interface';
 
-const Report = () => (
+const Report = ({ data }: { data: Service[] }) => (
   <div className='container'>
     <h1>Live PPV Event ROI Calculator</h1>
     <Table data={data} />

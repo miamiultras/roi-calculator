@@ -1,40 +1,66 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { calculateService } from '../services/calculate.service';
 
 import Step1 from '../components/Calculator/Step1/Step1';
 import Step2 from '../components/Calculator/Step2/Step2';
 import Step3 from '../components/Calculator/Step3/Step3';
 import Report from '../components/Calculator/Report/Report';
 import ExtendedReport from '../components/Calculator/Report/ExtendedReport';
+import Spinner from '../components/Spinner/Spinner';
+import { Form } from '../interfaces/form.interface';
 
 class Calculator extends Component<{ history: any }> {
   state = {
+    data: [],
+    extendedData: [],
+    isLoading: false,
     submitted: false,
-    qualityLevel: 'mid',
-    estimatedSellInput: '15000',
-    pricePerTicket: '19.99',
+    error: null,
+    form: {
+      qualityLevel: 'mid',
+      estimatedSellInput: '15000',
+      pricePerTicket: '19.99',
+    },
   };
 
+  calculateData = (form: Form) => {
+    calculateService.calculate(form)
+      .then(({ data, extendedData }: any) => {
+        this.setState({ data, extendedData, isLoading: false });
+      })
+      .catch((error: Error) => {
+        this.setState({ error, isLoading: false });
+      });
+  }
+
   handleSubmit = (): void => {
-    console.log('test');
+    const { form } = this.state;
     this.setState(
       {
         submitted: true,
+        isLoading: true,
       },
       () => this.props.history.push('/calculator/report'),
     );
+    this.calculateData(form);
   }
 
   handleChange = (e: any): void => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.setState({
+      form: {
+        [name]: value,
+      },
+    });
   }
 
   render() {
     console.log(this.state);
-    const { qualityLevel, estimatedSellInput, pricePerTicket } = this.state;
+    const { qualityLevel, estimatedSellInput, pricePerTicket } = this.state.form;
+    const { data, extendedData, isLoading, error } = this.state;
     return (
-      <div style={{ width: '70%' }}>
+      <div style={{ width: '70%', display: 'flex' }}>
         <Switch>
           <Redirect from='/calculator' exact to='/calculator/step1' />
           <Route
@@ -70,11 +96,11 @@ class Calculator extends Component<{ history: any }> {
           />
           <Route
             path='/calculator/report'
-            render={() => <Report />}
+            render={() => isLoading ? <Spinner /> : <Report data={data} />}
           />
           <Route
             path='/calculator/extended-report'
-            render={() => <ExtendedReport />}
+            render={() => <ExtendedReport extendedData={extendedData} />}
           />
         </Switch>
       </div>
