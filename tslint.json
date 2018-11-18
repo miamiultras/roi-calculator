@@ -10,6 +10,8 @@
       2
     ],
     "no-else-after-return": false,
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
     "quotemark": [
       true,
       "single",

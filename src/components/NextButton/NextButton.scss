@@ -1,0 +1,49 @@
+.next-btn {
+  a {
+    text-decoration: none;
+    &:visited {
+      text-decoration: none;
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-family: 'Roboto';
+      font-size: 16px;
+      background: #5db98f;
+      color: #fff;
+      cursor: pointer;
+      text-transform: uppercase;
+      width: auto;
+      padding: 10px;
+      border: none;
+    
+      .square {
+        margin-left: 10px;
+        width: 24px;
+        height: 24px;
+        background-color: #fff;
+        position: relative;
+  
+        i {
+          border: solid #5db98f;
+          border-width: 0 1.2px 1.2px 0;
+          padding: 5px;
+          position: absolute;
+          right: 9px;
+          top: 6.5px;
+        } 
+      
+        .right {
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+}

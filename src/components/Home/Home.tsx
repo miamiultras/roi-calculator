@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Home.scss';
 
 const Home = () => (
-  <div className='title-container'>
+  <div className='home-container'>
     <div className='title'>
       <h1>Live PPV Event ROI Calculator</h1>
     </div>

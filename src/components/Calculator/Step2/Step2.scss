@@ -1,0 +1,26 @@
+.step2-container {
+  width: 100%;
+  color: #fff;
+  h1 {
+    font-family: 'Roboto';
+    font-weight: 300;
+    color: #fff;
+    font-size: 36px;
+    margin: 20px 0 10px 0;
+    text-transform: uppercase;
+  }
+
+  img {
+    margin-top: 34px;
+    height: 76px;
+  }
+
+  input[type="number"] {
+    width: 242px;
+    padding: 4px 8px;
+    text-align: center;
+    color: #999;
+    font-size: 21px;
+    margin-bottom: 50px;
+  }
+}
