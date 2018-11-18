@@ -27,4 +27,17 @@ body {
     align-items: center;
     justify-content: center;
   }
+
+  .container {
+    width: 100%;
+    color: #fff;
+    h1 {
+      font-family: 'Roboto';
+      font-weight: 300;
+      color: #fff;
+      font-size: 36px;
+      margin: 20px 0 10px 0;
+      text-transform: uppercase;
+    }
+  }
 }

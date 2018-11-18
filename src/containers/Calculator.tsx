@@ -4,6 +4,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Step1 from '../components/Calculator/Step1/Step1';
 import Step2 from '../components/Calculator/Step2/Step2';
 import Step3 from '../components/Calculator/Step3/Step3';
+import Report from '../components/Calculator/Report/Report';
+import ExtendedReport from '../components/Calculator/Report/ExtendedReport';
 
 class Calculator extends Component<{ history: any }> {
   state = {
@@ -19,7 +21,7 @@ class Calculator extends Component<{ history: any }> {
       {
         submitted: true,
       },
-      () => this.props.history.push('/'),
+      () => this.props.history.push('/calculator/report'),
     );
   }
 
@@ -65,6 +67,14 @@ class Calculator extends Component<{ history: any }> {
                 handleSubmit={this.handleSubmit}
               />
             }
+          />
+          <Route
+            path='/calculator/report'
+            render={() => <Report />}
+          />
+          <Route
+            path='/calculator/extended-report'
+            render={() => <ExtendedReport />}
           />
         </Switch>
       </div>
