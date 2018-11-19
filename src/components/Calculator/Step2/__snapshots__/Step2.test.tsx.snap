@@ -42,7 +42,7 @@ ShallowWrapper {
           id="estimatedSellInput"
           name="estimatedSellInput"
           onChange={[Function]}
-          type="number"
+          type="text"
           value="15000"
         />,
         <NextButton
@@ -127,7 +127,7 @@ ShallowWrapper {
           "id": "estimatedSellInput",
           "name": "estimatedSellInput",
           "onChange": [Function],
-          "type": "number",
+          "type": "text",
           "value": "15000",
         },
         "ref": null,
@@ -200,7 +200,7 @@ ShallowWrapper {
             id="estimatedSellInput"
             name="estimatedSellInput"
             onChange={[Function]}
-            type="number"
+            type="text"
             value="15000"
           />,
           <NextButton
@@ -285,7 +285,7 @@ ShallowWrapper {
             "id": "estimatedSellInput",
             "name": "estimatedSellInput",
             "onChange": [Function],
-            "type": "number",
+            "type": "text",
             "value": "15000",
           },
           "ref": null,

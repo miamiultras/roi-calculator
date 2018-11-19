@@ -84,6 +84,7 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "function",
         "props": Object {
+          "action": undefined,
           "name": "find out now",
           "to": "extended-report",
         },
@@ -189,6 +190,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "function",
           "props": Object {
+            "action": undefined,
             "name": "find out now",
             "to": "extended-report",
           },

@@ -1,7 +1,8 @@
 import { dataConstants } from '../constants/data.constants';
 import { AnyAction } from 'redux';
+import { DataState } from '../../interfaces/dataState.interface';
 
-const initialState = {
+const initialState: DataState = {
   isLoading: false,
   items: {
     data: [],
@@ -10,7 +11,7 @@ const initialState = {
   error: '',
 };
 
-export function dataReducer(state = initialState, action: AnyAction) {
+export function dataReducer(state: DataState = initialState, action: AnyAction): DataState {
   switch (action.type) {
     case dataConstants.FETCH_DATA:
       return {

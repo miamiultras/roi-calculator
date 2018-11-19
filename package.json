@@ -7,7 +7,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "tslint -p . -c tslint.json"
+    "lint": "tslint -p . -c tslint.json",
+    "test-coverage": "react-scripts test --env=jsdom --coverage"
   },
   "husky": {
     "hooks": {
@@ -18,7 +19,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!src/index.tsx",
-      "!src/serviceWorker.ts"
+      "!src/serviceWorker.ts",
+      "!src/mocks/*",
+      "!src/interfaces/*",
+      "!src/store.ts"
     ]
   },
   "dependencies": {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { dataActions } from '../store/actions/data.actions';
+
+import { Form } from '../interfaces/form.interface';
 
 import Step1 from '../components/Calculator/Step1/Step1';
 import Step2 from '../components/Calculator/Step2/Step2';
@@ -10,7 +11,7 @@ import Step3 from '../components/Calculator/Step3/Step3';
 import Report from '../components/Calculator/Report/Report';
 import ExtendedReport from '../components/Calculator/Report/ExtendedReport';
 import Spinner from '../components/Spinner/Spinner';
-import { Form } from '../interfaces/form.interface';
+import { Service } from '../interfaces/service.interface';
 
 class Calculator extends Component<
   {
@@ -18,7 +19,7 @@ class Calculator extends Component<
     getData: Function,
     getExtendedData: Function,
     isLoading: boolean,
-    items: any,
+    items: { data: Service[], extendedData: Service[] },
   }
   > {
   state = {
@@ -29,21 +30,15 @@ class Calculator extends Component<
     },
   };
 
-  calculateData = () => {
+  calculateData = (): void => {
     const { form } = this.state;
-    this.setState(
-      { isLoading: true },
-      () => this.props.history.push('/calculator/report'),
-    );
+    this.props.history.push('/calculator/report');
     this.props.getData(form);
   }
 
-  calculateExtendedData = () => {
+  calculateExtendedData = (): void => {
     const { form } = this.state;
-    this.setState(
-      { isLoading: true },
-      () => this.props.history.push('/calculator/extended-report'),
-    );
+    this.props.history.push('/calculator/extended-report');
     this.props.getExtendedData(form);
   }
 
@@ -114,15 +109,19 @@ class Calculator extends Component<
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  isLoading: state.isLoading,
-  items: state.items,
-});
+const mapStateToProps = ({ data }: any) => {
+  return {
+    items: data.items,
+    isLoading: data.isLoading,
+  };
+};
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getData: (form: Form) => dispatch(dataActions.getData(form)),
-  getExtendedData: (form: Form) => dispatch(dataActions.getData(form)),
-});
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getData: (form: Form) => dispatch(dataActions.getData(form)),
+    getExtendedData: (form: Form) => dispatch(dataActions.getExtendedData(form)),
+  };
+};
 
 const connectedCalculator = connect(
   mapStateToProps,
