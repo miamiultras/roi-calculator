@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { calculateService } from '../services/calculate.service';
+
+import { connect } from 'react-redux';
+import { dataActions } from '../store/actions/data.actions';
 
 import Step1 from '../components/Calculator/Step1/Step1';
 import Step2 from '../components/Calculator/Step2/Step2';
@@ -10,13 +12,16 @@ import ExtendedReport from '../components/Calculator/Report/ExtendedReport';
 import Spinner from '../components/Spinner/Spinner';
 import { Form } from '../interfaces/form.interface';
 
-class Calculator extends Component<{ history: any }> {
+class Calculator extends Component<
+  {
+    history: any,
+    getData: Function,
+    getExtendedData: Function,
+    isLoading: boolean,
+    items: any,
+  }
+  > {
   state = {
-    data: [],
-    extendedData: [],
-    isLoading: false,
-    submitted: false,
-    error: null,
     form: {
       qualityLevel: 'mid',
       estimatedSellInput: '15000',
@@ -24,41 +29,40 @@ class Calculator extends Component<{ history: any }> {
     },
   };
 
-  calculateData = (form: Form) => {
-    calculateService.calculate(form)
-      .then(({ data, extendedData }: any) => {
-        this.setState({ data, extendedData, isLoading: false });
-      })
-      .catch((error: Error) => {
-        this.setState({ error, isLoading: false });
-      });
-  }
-
-  handleSubmit = (): void => {
+  calculateData = () => {
     const { form } = this.state;
     this.setState(
-      {
-        submitted: true,
-        isLoading: true,
-      },
+      { isLoading: true },
       () => this.props.history.push('/calculator/report'),
     );
-    this.calculateData(form);
+    this.props.getData(form);
+  }
+
+  calculateExtendedData = () => {
+    const { form } = this.state;
+    this.setState(
+      { isLoading: true },
+      () => this.props.history.push('/calculator/extended-report'),
+    );
+    this.props.getExtendedData(form);
   }
 
   handleChange = (e: any): void => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    if (type !== 'radio' && !/^-?\d+\.?\d*$/.test(value)) {
+      return;
+    }
     this.setState({
       form: {
+        ...this.state.form,
         [name]: value,
       },
     });
   }
 
   render() {
-    console.log(this.state);
     const { qualityLevel, estimatedSellInput, pricePerTicket } = this.state.form;
-    const { data, extendedData, isLoading, error } = this.state;
+    const { items, isLoading } = this.props;
     return (
       <div style={{ width: '70%', display: 'flex' }}>
         <Switch>
@@ -90,17 +94,19 @@ class Calculator extends Component<{ history: any }> {
                 {...props}
                 pricePerTicket={pricePerTicket}
                 handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
+                calculateData={this.calculateData}
               />
             }
           />
           <Route
             path='/calculator/report'
-            render={() => isLoading ? <Spinner /> : <Report data={data} />}
+            render={
+              () => isLoading ? <Spinner /> : <Report data={items.data} calculateData={this.calculateExtendedData} />}
           />
           <Route
             path='/calculator/extended-report'
-            render={() => <ExtendedReport extendedData={extendedData} />}
+            render={
+              () => isLoading ? <Spinner /> : <ExtendedReport extendedData={items.extendedData} />}
           />
         </Switch>
       </div>
@@ -108,4 +114,18 @@ class Calculator extends Component<{ history: any }> {
   }
 }
 
-export default Calculator;
+const mapStateToProps = (state: any) => ({
+  isLoading: state.isLoading,
+  items: state.items,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getData: (form: Form) => dispatch(dataActions.getData(form)),
+  getExtendedData: (form: Form) => dispatch(dataActions.getData(form)),
+});
+
+const connectedCalculator = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Calculator);
+export { connectedCalculator as Calculator };

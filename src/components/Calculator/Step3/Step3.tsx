@@ -10,11 +10,11 @@ import CalculatorNavigation from '../../CalculatorNavigation/CalculatorNavigatio
 const Step3 = (
   { pricePerTicket,
     handleChange,
-    handleSubmit,
+    calculateData,
   }: {
       pricePerTicket: string,
       handleChange: any,
-      handleSubmit: any,
+      calculateData: any,
     }) => (
     <div className='step3-container'>
       <div className='title'>
@@ -38,7 +38,7 @@ const Step3 = (
         />
         <span className='currency-sign'>&euro;</span>
       </div>
-      <NextButton name='see the results' to='step3' action={handleSubmit} />
+      <NextButton name='see the results' to='report' action={calculateData} />
       <BackButton name='back' to='step2' />
       <CalculatorNavigation step={3} />
     </div>

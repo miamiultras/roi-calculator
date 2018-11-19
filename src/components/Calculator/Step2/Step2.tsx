@@ -22,7 +22,7 @@ const Step2 = ({ estimatedSellInput, handleChange }: { estimatedSellInput: strin
 
     <input
       id='estimatedSellInput'
-      type='number'
+      type='text'
       name='estimatedSellInput'
       value={estimatedSellInput}
       onChange={handleChange}
